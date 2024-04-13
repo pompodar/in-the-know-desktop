@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="script-src 'self' 'unsafe-inline'"
+  />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/renderer.js" defer></script>
+    <title>Test it</title>
+  </head>
+  <body class="bg-teal-700">
+    <div
+      class="max-w-xl p-4 m-auto h-screen flex flex-col align-center justify-center"
+      id="screen"
+    >
+      <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
+        <p class="bg-white p-4" id="question">
+        </p>
+
+        <p class="bg-white p-4" id="answer">
+        </p>
+
+        <button class="bg-white pl-4" id="go">go</button>
+
+        <button class="bg-white" id="showAnswer">answer</button>
+
+      </div>
+
+    </div>
+  </body>
+</html>
