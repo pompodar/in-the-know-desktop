@@ -801,6 +801,10 @@ video {
   --tw-ring-offset-width: 2px;
 }
 
+#screen {
+  background-size: contain;
+}
+
 #showAnswer {
   display: none;
 }

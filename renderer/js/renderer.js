@@ -85,7 +85,7 @@ const handleGoPress = () => {
 
   question.textContent = filteredQuestions[currentIndex]?.question;
 
-  answer.textContent = "";
+  answer.style.display = "none";
 
   go.style.display = "none";
 
@@ -107,6 +107,8 @@ const handleSeeAnswerPress = () => {
   filteredQuestions[currentIndex].featured_media ? screen.style.backgroundImage = "url(" + filteredQuestions[currentIndex].featured_media + ")" : null;
 
   showAnswer.style.display = "none";
+
+  answer.style.display = "block";
 
   go.style.display = "block";
 
