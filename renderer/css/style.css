@@ -805,6 +805,32 @@ video {
   background-size: contain;
 }
 
-#showAnswer {
-  display: none;
+#screen > div {
+  max-width: max-content;
+  margin: 0 auto;
+  border-radius: 8px;
+  background-color: aqua;
+  color: white;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
+
+#screen * {
+  font-weight: 700;
+  background-color: aqua;
+  color: white;
+}
+
+#question {
+  border-radius: 8px;
+}
+
+#showAnswer, #go {
+  width: 50px;
+}
+
+#number {
+  color: orangered;
+  font-size: 12px;
+  margin: -12px;
+}
+

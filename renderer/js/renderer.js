@@ -3,6 +3,7 @@ const question = document.querySelector('#question');
 const go = document.querySelector('#go');
 const showAnswer = document.querySelector('#showAnswer');
 const answer = document.querySelector('#answer');
+const number = document.querySelector('#number');
 
 let filteredQuestions = [],
   media = [],
@@ -24,7 +25,7 @@ let filteredQuestions = [],
       // Parse the JSON response body
       const data = await response.json();
   
-      media = data.map((item) => ({ uri: item.link }));;
+      media = shuffleArray(data.map((item) => ({ uri: item.link })));
 
       screen.style.backgroundImage = "url(" + media[0].uri + ")";
     
@@ -48,9 +49,11 @@ async function fetchData() {
     // Parse the JSON response body
     const data = await response.json();
 
-    filteredQuestions = data.filter((question) => question?.question);
+    filteredQuestions = shuffleArray(data.filter((question) => question?.question));
     
     question.textContent = filteredQuestions[currentIndex]?.question;
+
+    number.textContent = numberOfCurrentQuestion + " / " + filteredQuestions.length;
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -92,6 +95,8 @@ const handleGoPress = () => {
   showAnswer.style.display = "block";
 
   screen.style.backgroundImage = "url(" + media[randomIndex].uri + ")";
+
+  number.textContent = numberOfCurrentQuestion + " / " + filteredQuestions.length;
 
   if (numberOfCurrentQuestion !== filteredQuestions.length) {
       return;
