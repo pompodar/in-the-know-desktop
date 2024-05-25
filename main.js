@@ -26,7 +26,7 @@ function createMainWindow() {
 
   // Show devtools automatically if in development
   if (isDev) {
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   }
 
     // mainWindow.loadURL(`file://${__dirname}/renderer/index.html`);

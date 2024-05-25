@@ -4,8 +4,11 @@ const go = document.querySelector('#go');
 const showAnswer = document.querySelector('#showAnswer');
 const answer = document.querySelector('#answer');
 const number = document.querySelector('#number');
+const repeated = document.querySelector('#repeated');
 
 let filteredQuestions = [],
+  filteredIds = [],
+  filteredRepeated = [],
   media = [],
   currentIndex = [],
   temporaryValue,
@@ -33,26 +36,48 @@ let filteredQuestions = [],
       console.error('Error fetching data:', error);
     }
   }
+
+  async function updateRepeated(postId, newRepeated) {
+    const url = `https://in-the-know.blobsandtrees.online/wp-json/custom/v1/update-repeated/${postId}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ new_repeated: newRepeated })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log('Success:', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
   
 
-// Example function to fetch data from a URL
 async function fetchData() {
   try {
-    // Make a GET request to the specified URL
     const response = await fetch('https://in-the-know.blobsandtrees.online/wp-json/custom/v1/question-posts');
-    
-    // Check if the response is successful (status code 200-299)
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
-    
-    // Parse the JSON response body
     const data = await response.json();
 
-    filteredQuestions = shuffleArray(data.filter((question) => question?.question));
-    
-    question.textContent = filteredQuestions[currentIndex]?.question;
+    // Shuffle the data array
+    const shuffledData = shuffleArray(data);
 
+    // Extract filteredQuestions, filteredIds, and filteredRepeateds from the shuffled array
+    filteredQuestions = shuffledData.filter((question) => question?.question);
+    filteredIds = filteredQuestions.map(item => item.id);
+    filteredRepeateds = filteredQuestions.map(item => item.repeated);
+
+    question.textContent = filteredQuestions[currentIndex]?.question;
     number.textContent = numberOfCurrentQuestion + " / " + filteredQuestions.length;
 
   } catch (error) {
@@ -60,26 +85,28 @@ async function fetchData() {
   }
 }
 
+// Shuffle function
+const shuffleArray = (array) => {
+  let currentIndex = array.length;
+  let temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
 // Call the fetchData function to initiate the request
 fetchData();
 
 // Call the fetchData function to initiate the request
 fetchMedia();
-
-const shuffleArray = (array) => {
-  currentIndex = array.length;
-
-  while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-};
 
 const handleGoPress = () => {
   currentIndex++;
@@ -116,6 +143,10 @@ const handleSeeAnswerPress = () => {
   answer.style.display = "block";
 
   go.style.display = "block";
+
+  repeated.textContent = filteredQuestions[currentIndex]?.repeated;
+
+  updateRepeated(filteredIds[currentIndex], (Number(filteredQuestions[currentIndex].repeated) + 1));
 
 };
 
