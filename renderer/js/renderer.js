@@ -60,7 +60,6 @@ let filteredQuestions = [],
     }
 }
   
-
 async function fetchData() {
   try {
     const response = await fetch('https://in-the-know.blobsandtrees.online/wp-json/custom/v1/question-posts');
@@ -69,11 +68,39 @@ async function fetchData() {
     }
     const data = await response.json();
 
+    // Find the minimum and maximum repeated numbers in the data array
+    const minRepeat = Math.min(...data.map(question => question.repeated || Infinity));
+    const maxRepeat = Math.max(...data.map(question => question.repeated || 0));
+
+    // Define a step size for creating the threshold
+    const step = 1;
+
+    // Generate an array of thresholds from minRepeat to maxRepeat with the specified step size
+    const thresholds = [];
+    for (let i = minRepeat; i <= maxRepeat; i += step) {
+      thresholds.push(i);
+    }
+
     // Shuffle the data array
-    const shuffledData = shuffleArray(data);
+    const shuffledData = shuffleArray(data.filter((item) => item?.question));
+
+    // Separate the shuffled data array into multiple arrays based on the thresholds
+    const shuffledGroups = [];
+    for (let i = 0; i < thresholds.length; i++) {
+      const threshold = thresholds[i];
+      console.log(threshold, 8);
+      const group = shuffledData.filter(question => (question.repeated || 0) == threshold);
+      shuffledGroups.push(group);
+    }
+
+    // Shuffle each group independently
+    const shuffledGroupsShuffled = shuffledGroups.map(group => (group));
+
+    // Concatenate the shuffled groups to create the final shuffled data array
+    const shuffledDataFinal = [].concat(...shuffledGroupsShuffled);
 
     // Extract filteredQuestions, filteredIds, and filteredRepeateds from the shuffled array
-    filteredQuestions = shuffledData.filter((question) => question?.question);
+    filteredQuestions = shuffledDataFinal;
     filteredIds = filteredQuestions.map(item => item.id);
     filteredRepeateds = filteredQuestions.map(item => item.repeated);
 
