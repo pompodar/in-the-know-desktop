@@ -10,7 +10,7 @@ let filteredQuestions = [],
   filteredIds = [],
   filteredRepeated = [],
   media = [],
-  currentIndex = [],
+  currentIndex = 0,
   temporaryValue,
   randomIndex,
   numberOfCurrentQuestion = 1;
@@ -88,7 +88,6 @@ async function fetchData() {
     const shuffledGroups = [];
     for (let i = 0; i < thresholds.length; i++) {
       const threshold = thresholds[i];
-      console.log(threshold, 8);
       const group = shuffledData.filter(question => (question.repeated || 0) == threshold);
       shuffledGroups.push(group);
     }
