@@ -828,7 +828,7 @@ video {
   width: 50px;
 }
 
-#number {
+#number, #notice {
   color: orangered;
   font-size: 12px;
   margin: -12px;

@@ -8,6 +8,7 @@ const showAnswer = document.querySelector('#showAnswer');
 const number = document.querySelector('#number');
 const repeated = document.querySelector('#repeated');
 const save = document.querySelector('#save');
+const notice = document.querySelector('#notice');
 
 let filteredQuestions = [],
   filteredIds = [],
@@ -106,6 +107,7 @@ fetchData();
 fetchMedia();
 
 const handleGoPress = () => {
+  notice.style.display = "none";
   currentIndex++;
   const randomIndex = Math.floor(Math.random() * media.length);
   numberOfCurrentQuestion++;
@@ -144,6 +146,7 @@ const handleSeeAnswerPress = () => {
 
   answer.style.display = "block";
   question.style.display = "block";
+  notice.style.display = "none";
 };
 
 const handleDisplayQuestionInput = () => {
@@ -177,9 +180,9 @@ const handleSavePress = async () => {
     if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
     const data = await response.json();
     console.log('Success:', data);
-
-    // filteredQuestions[currentIndex].question = updatedQuestion;
-    // filteredQuestions[currentIndex].answer = updatedAnswer;
+    
+    notice.style.display = "block";
+    notice.textContent = "Question updated!";
 
     question.textContent = updatedQuestion;
     answer.textContent = updatedAnswer;
@@ -193,6 +196,8 @@ const handleSavePress = async () => {
   
   } catch (error) {
     console.error('Error:', error);
+    notice.style.display = "block";
+    notice.textContent = "Error updating question!";
   }
 };
 
