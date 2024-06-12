@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
-    http-equiv="Content-Security-Policy"
-    content="script-src 'self' 'unsafe-inline'"
-  />
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline'"
+    />
     <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="js/renderer.js" defer></script>
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/renderer.js" defer></script>
     <title>Test it</title>
   </head>
   <body class="bg-teal-700">
@@ -21,14 +21,13 @@
       id="screen"
     >
       <div class="flex flex-col items-center justify-center bg-white max-w-max rounded">
-        <p class="bg-white p-3 rounded" id="question">
-        </p>
+        <p class="bg-white p-3 rounded" id="question"></p>
+        <div class="bg-white p-3 hidden" id="questionInput" contenteditable></div>
 
-        <p class="bg-white p-3 hidden" id="answer">
-        </p>
+        <p class="bg-white p-3 hidden" id="answer"></p>
+        <div class="bg-white p-3 hidden" id="answerInput" contenteditable></div>
 
-        <p class="bg-white p-3 text-sm" id="number">
-        </p>
+        <p class="bg-white p-3 text-sm" id="number"></p>
 
         <button class="bg-white p-3 hidden" id="go">
           <img src="./images/next-svgrepo-com (3).svg" alt="">
@@ -38,11 +37,12 @@
           <img src="./images/reply-svgrepo-com.svg" alt="">
         </button>
 
-        <p class="bg-white p-3 text-sm" id="repeated">
-        </p>
+        <button class="bg-white p-3 hidden" id="save">
+          <img src="./images/diskette-save-svgrepo-com.svg" alt="">
+        </button>
 
+        <p class="bg-white p-3 text-sm" id="repeated"></p>
       </div>
-
     </div>
   </body>
 </html>

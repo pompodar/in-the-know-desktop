@@ -824,7 +824,7 @@ video {
   border-radius: 8px;
 }
 
-#showAnswer, #go {
+#showAnswer, #go, #save {
   width: 50px;
 }
 
@@ -832,5 +832,9 @@ video {
   color: orangered;
   font-size: 12px;
   margin: -12px;
+}
+
+img {
+  width: 100%;
 }
 
