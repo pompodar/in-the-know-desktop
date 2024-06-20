@@ -52,8 +52,8 @@ async function fetchData() {
     if (!response.ok) throw new Error('Failed to fetch data');
     const data = await response.json();
 
-    const minRepeat = Math.min(...data.map(question => question.repeated || Infinity));
-    const maxRepeat = Math.max(...data.map(question => question.repeated || 0));
+    const minRepeat = Math.min(...data.map(question => question.repeated));
+    const maxRepeat = Math.max(...data.map(question => question.repeated));
     const step = 1;
 
     const thresholds = [];
